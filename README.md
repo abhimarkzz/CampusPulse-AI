@@ -76,6 +76,15 @@ docker-compose.yml
 .github/workflows/ci.yml
 ```
 
+## Live URLs
+
+| Service | URL |
+|---------|-----|
+| **Netlify (primary)** | https://campuspulse-ai-klh.netlify.app |
+| **GitHub Pages** | https://abhimarkzz.github.io/CampusPulse-AI/ |
+| **GitHub Repo** | https://github.com/abhimarkzz/CampusPulse-AI |
+| **Netlify Admin** | https://app.netlify.com/projects/campuspulse-ai-klh |
+
 ## Deploy
 
 ### Frontend — Netlify (1 click)
