@@ -76,6 +76,32 @@ docker-compose.yml
 .github/workflows/ci.yml
 ```
 
+## Deploy
+
+### Frontend — Netlify (1 click)
+
+Repo: **https://github.com/abhimarkzz/CampusPulse-AI**
+
+1. Open [Netlify deploy from GitHub](https://app.netlify.com/start/deploy?repository=https://github.com/abhimarkzz/CampusPulse-AI)
+2. Sign in → select **CampusPulse-AI** repo → Deploy site
+3. `netlify.toml` is already configured (builds `frontend/`, SPA redirects included)
+
+After deploy, set **Site settings → Environment variables**:
+
+| Variable | Value |
+|----------|-------|
+| `VITE_API_BASE_URL` | Your backend URL (see below) |
+
+### Backend — Render (recommended)
+
+Netlify hosts the frontend only. Deploy the API on [Render](https://render.com):
+
+1. New **Blueprint** → connect `abhimarkzz/CampusPulse-AI`
+2. Uses `render.yaml` (PostgreSQL + FastAPI)
+3. After deploy, run seed once in Render shell: `python -m app.database.seed`
+4. Copy the Render URL → paste into Netlify `VITE_API_BASE_URL`
+5. Update Render `CORS_ORIGINS` to your Netlify URL (e.g. `https://campuspulse-ai.netlify.app`)
+
 ## Stitch Design
 
 Export `DESIGN.md` from Google Stitch and connect MCP via `.cursor/mcp.json` to align UI with your design system.
