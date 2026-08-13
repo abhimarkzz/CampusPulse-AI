@@ -1,0 +1,26 @@
+# Optional: deploy backend on Render (free tier)
+# Connect this repo at https://render.com and use this blueprint
+services:
+  - type: web
+    name: campuspulse-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -e .
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_SYNC
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://YOUR-NETLIFY-SITE.netlify.app
+      - key: AI_PROVIDER
+        value: mock
+
+databases:
+  - name: campuspulse-db
+    plan: free
