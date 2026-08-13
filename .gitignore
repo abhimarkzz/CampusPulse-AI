@@ -46,3 +46,6 @@ media/
 
 # Stitch exports (regenerate via MCP)
 .stitch/export/
+
+# Local Netlify folder
+.netlify

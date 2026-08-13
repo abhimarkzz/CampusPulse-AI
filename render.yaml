@@ -1,26 +1,39 @@
-# Optional: deploy backend on Render (free tier)
-# Connect this repo at https://render.com and use this blueprint
+# Render Blueprint — CampusPulse AI Backend
+# Deploy: Render Dashboard → New Blueprint → connect abhimarkzz/CampusPulse-AI
+
+databases:
+  - name: campuspulse-db
+    plan: free
+    databaseName: campuspulse
+    user: campuspulse
+
 services:
   - type: web
     name: campuspulse-api
     runtime: python
     rootDir: backend
+    plan: free
     buildCommand: pip install -e .
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: bash scripts/start.sh
+    healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: campuspulse-db
+          property: connectionString
       - key: DATABASE_URL_SYNC
-        sync: false
+        fromDatabase:
+          name: campuspulse-db
+          property: connectionString
       - key: JWT_SECRET_KEY
         generateValue: true
       - key: SECRET_KEY
         generateValue: true
       - key: CORS_ORIGINS
-        value: https://YOUR-NETLIFY-SITE.netlify.app
+        value: https://campuspulse-ai-klh.netlify.app,https://abhimarkzz.github.io
       - key: AI_PROVIDER
         value: mock
-
-databases:
-  - name: campuspulse-db
-    plan: free
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "false"
